@@ -30,9 +30,9 @@ endif()
 
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 
-find_package(OpenCV 4.4)
+find_package(OpenCV 4.2)
    if(NOT OpenCV_FOUND)
-      message(FATAL_ERROR "OpenCV > 4.4 not found.")
+      message(FATAL_ERROR "OpenCV > 4.2 not found.")
    endif()
 
 MESSAGE("OPENCV VERSION:")
@@ -388,3 +388,9 @@ if(realsense2_FOUND)
             Examples_old/Stereo-Inertial/stereo_inertial_realsense_D435i.cc)
     target_link_libraries(stereo_inertial_realsense_D435i_old ${PROJECT_NAME})
 endif()
+
+# Build tools for binary vocabulary transformation
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/tools)
+add_executable(bin_vocabulary
+tools/bin_vocabulary.cc)
+target_link_libraries(bin_vocabulary ${PROJECT_NAME})
