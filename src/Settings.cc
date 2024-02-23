@@ -335,6 +335,14 @@ namespace ORB_SLAM3 {
 
         //Load stereo extrinsic calibration
         if(cameraType_ == Rectified){
+            float fx = readParameter<float>(fSettings,"Camera1.fx",found);
+            float fy = readParameter<float>(fSettings,"Camera1.fy",found);
+            float cx = readParameter<float>(fSettings,"Camera1.cx",found);
+            float cy = readParameter<float>(fSettings,"Camera1.cy",found);
+            vCalibration = {fx, fy, cx, cy};
+            calibration2_ = new Pinhole(vCalibration);
+            originalCalib2_ = new Pinhole(vCalibration);
+
             b_ = readParameter<float>(fSettings,"Stereo.b",found);
             bf_ = b_ * calibration1_->getParameter(0);
         }
